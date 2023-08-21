@@ -125,4 +125,7 @@
     <MESSAGE value="notice list 확인 및 Notice엔티티 foreign 수정" />
     <option name="LAST_COMMIT_MESSAGE" value="notice list 확인 및 Notice엔티티 foreign 수정" />
   </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
 </project>
