@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 수정 </title>
+</head>
+<style>
+    .layout{
+        width : 500px;
+        margin: 0 auto;
+        margin-top : 40px;
+    }
+
+</style>
+<body>
+<h1 style="text-align:center">공지사항 작성 폼 (테스트 버전)</h1>
+
+<div class="layout">
+    <form th:action="@{/notice/noticeupdate/{id}(id=${Notice.id})}" method="post">
+        <div> <p th:text="${Notice.siteUser.username}"> 작성자 </p> </div>  <!--작성자만 출력-->
+        <div style="text-align:center;"><input style="width :100%;" name="meetSubject" type="text" th:value="${Notice.meetSubject}"></div>
+        <div style="text-align:center;"><input style="width:100%;" name="meetDay" th:value="${Notice.meetDay}" type="date"></div>
+        <div style="text-align:center;"><input style="width:100%;" name="meetPlace" th:value="${Notice.meetPlace}" type="text"></div>
+        <div style="text-align:center; height:200px;"><textarea style="width:100%; height:200px;" name="content" th:text="${Notice.content}"></textarea></div>
+        <br>
+        <button type="submit">수정</button>
+    </form>
+</div>
+</body>
+</html>
