@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Notification Site</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=KAKAO_MAP_API_KEY&libraries=services,clusterer,drawing"
+    ></script>
+  </head>
+
+  <body>
+    <div class="bg-dark">
+      <div style="border: 1px solid #ffffff">
+        <div class="row gx-5 justify-content-center">
+          <div class="col-lg-6">
+            <div
+              class="text-center my-5"
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <h1 class="display-3 fw-bolder text-white mb-2">공지사항 main</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="lead text-white-50 mb-4 boxed-content">작성자</p>
+
+      <br />
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="content-box">
+              <p class="lead text-white-50 mb-4 boxed-content">일시</p>
+              <p class="lead text-white-50 mb-4 boxed-content">장소</p>
+              <p class="lead text-white-50 mb-4 boxed-content">세부공지사항</p>
+              <p class="lead text-white-50 mb-4 boxed-content">
+                모임장소:
+                <span id="meetingAddress">주소 불러오는 중...</span>
+                <button onclick="copyAddressToClipboard()">주소 복사</button>
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="content-box d-flex flex-column">
+              <div id="map" style="width: 100%; height: 70%"></div>
+
+              <br />
+              <div class="row">
+                <div class="col-lg-6">
+                  <p
+                    class="lead text-white-50 mb-4 boxed-content interactive-content"
+                  >
+                    뒤로가기
+                  </p>
+                </div>
+                <div class="col-lg-6">
+                  <p
+                    class="lead text-white-50 mb-4 boxed-content interactive-content"
+                  >
+                    공지사항목록
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="content-box"></div>
+          </div>
+          <div class="col-lg-6">
+            <div class="content-box">
+              <div class="row">
+                <div class="col-lg-6"></div>
+                <div class="col-lg-6">
+                  <p
+                    class="lead text-white-50 mb-4 boxed-content interactive-content edit-button"
+                  >
+                    주소찾기
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
