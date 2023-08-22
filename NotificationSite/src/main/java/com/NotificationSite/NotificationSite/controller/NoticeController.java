@@ -45,7 +45,7 @@ public class NoticeController {
     }
 
     //공지사항 상세
-    @GetMapping("/noticeview")
+    @GetMapping(value = "/noticeview/{id}")
     public String noticeView(Model model, Integer id){
         model.addAttribute("Notice",noticeService.noticeView(id));
         return "noticeview";

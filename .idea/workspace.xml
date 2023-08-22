@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 61c62566b15fe276dee6abc6e57c322e7c52be08
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -129,15 +125,10 @@
     <MESSAGE value="notice list 확인 및 Notice엔티티 foreign 수정" />
     <option name="LAST_COMMIT_MESSAGE" value="notice list 확인 및 Notice엔티티 foreign 수정" />
   </component>
-<<<<<<< HEAD
-=======
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
->>>>>>> 2ddc7ad545f1046ab8c647cc9b0b01d2be5fdea6
-=======
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
->>>>>>> 61c62566b15fe276dee6abc6e57c322e7c52be08
 </project>
