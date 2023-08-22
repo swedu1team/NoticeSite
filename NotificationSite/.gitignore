@@ -39,3 +39,6 @@ application-info.properties
 
 # Spring Security OAuth2 config
 src/main/resources/application.yml
+
+# User-specific stuff:
+.idea/workspace.xml
