@@ -3,68 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <title>공지사항</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <style>
+    /* 기본 스타일 */
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+    }
+    /* 네비게이션 바 스타일 */
+    .navbar {
+        background-color: #343a40;
+        color: white;
+    }
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin-left: 10px;
+    }
+    /* 전체 레이아웃 스타일 */
+    .layout {
+        width: 1000px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+    /* 공지사항 목록 컨테이너 스타일 */
+    .notice-list {
+        margin-top: 20px;
+    }
+    /* 공지사항 테이블 스타일 */
+    .notice-table th {
+        text-align: center;
+    }
+    .notice-table td {
+        vertical-align: middle;
+    }
+    /* 페이지 번호 컨테이너 스타일 */
+    .pagination {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    /* 등록 버튼 스타일 */
+    .write-button {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+    }
+  </style>
 </head>
-<style>
-  .layout{
-    width : 500px;
-    margin: 0 auto;
-    margin-top : 40px;
-  }
+<body>
 
-</style>
-<div layout:fragment="content" class="container my-3">
-  <div>
-    <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-    <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+<!-- 네비게이션 바 -->
+<nav class="navbar">
+  <div class="container">
+    <div class="top-links">
+      <a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+      <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+      <a href="/oauth2/authorization/kakao">카카오 로그인</a>
+      <a href="/oauth2/authorization/naver">네이버 로그인</a>
+      <a href="/user/signup">회원가입</a>
+    </div>
   </div>
+</nav>
 
-  <div>
-    <a href ="/oauth2/authorization/kakao">카카오 로그인</a>
-    <a href ="/oauth2/authorization/naver">네이버 로그인</a>
-  </div>
-
-  <div>
-    <a href="/user/signup">회원가입</a>
-  </div>
-
-    <h2>공지사항 목록</h2>
-    <table class="table">
+<!-- 전체 레이아웃 -->
+<div class="layout">
+  <h2>공지사항 목록</h2>
+  <!-- 공지사항 목록 테이블 -->
+  <div class="notice-list">
+    <table class="table notice-table">
       <thead>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>만남일시</th>
-          <th>작성일시</th>
-          <th>장소</th>
-        </tr>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>만남일시</th>
+        <th>작성일시</th>
+        <th>장소</th>
+      </tr>
       </thead>
       <tbody>
-        <tr class="text-center" th:each="notice, loop : ${paging}">
-          <td th:text="${loop.count}"></td>
-          <td class="text-start">
-            <a th:href="@{/notice/noticeview/(id)(id=${notice.id})}" th:text="${notice.meetSubject}"></a>
-          </td>
-          <td><span th:if="${notice.siteUser != null}" th:text="${notice.siteUser.username}"></span></td>
-          <td th:text="${notice.meetDay}"></td>
-          <td th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-          <td ><span th:text="${notice.meetPlace}"></span></td>
-        </tr>
+      <tr th:each="notice, loop : ${paging.content}">
+        <td th:text="${paging.number * paging.size + loop.index + 1}"></td>
+        <td class="text-start">
+          <a th:href="@{/notice/noticeview/(id)(id=${notice.id})}" th:text="${notice.meetSubject}"></a>
+        </td>
+        <td><span th:if="${notice.siteUser != null}" th:text="${notice.siteUser.username}"></span></td>
+        <td th:text="${notice.meetDay}"></td>
+        <td th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        <td><span th:text="${notice.meetPlace}"></span></td>
+      </tr>
       </tbody>
     </table>
-  <div th:if="${!paging.isEmpty()}">
+  </div>
+  <!-- 페이지 번호 -->
+  <div th:if="${!paging.isEmpty()}" class="pagination">
     <ul class="pagination justify-content-center">
       <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-        <a class="page-link"
-           th:href="@{|?page=${paging.number-1}|}">
+        <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
           <span>이전</span>
         </a>
       </li>
       <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
-          th:if="${page >= paging.number-5 and page <= paging.number+5}"
-          th:classappend="${page == paging.number} ? 'active'"
+          th:if="${page >= paging.number-2 and page <= paging.number+2}"
+          th:classappend="${page == paging.number + 1} ? 'active'"
           class="page-item">
-        <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+        <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"></a>
       </li>
       <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
         <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
@@ -73,6 +116,9 @@
       </li>
     </ul>
   </div>
-  <a th:href="@{/notice/noticewrite}" class="btn btn-primary">공지사항 등록하기</a>
+  <!-- 등록 버튼 -->
+  <a th:href="@{/notice/noticewrite}" class="btn btn-primary write-button">공지사항 등록하기</a>
 </div>
+
+</body>
 </html>
