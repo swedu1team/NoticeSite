@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 상세 글</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" integrity="... your integrity value ..." crossorigin="anonymous" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .detail-box {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 1500px;
+        }
+        .detail-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .detail-content {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .edit-buttons {
+            text-align: right;
+            margin-top: 30px;
+        }
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            margin-top: 20px;
+        }
+        .detail-section {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .detail-label {
+            font-size: 16px;
+            color: #6c757d;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 767px) {
+            .container {
+                padding: 20px;
+            }
+            .detail-box {
+                padding: 20px;
+            }
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="detail-box">
+        <h1 class="detail-title" th:text="${Notice.meetSubject}">공지사항 제목</h1>
+        <div class="detail-grid">
+            <div class="detail-section">
+                <p class="detail-label">작성자</p>
+                <p class="detail-content" th:text="${Notice.siteUser.username}">작성자명</p>
+            </div>
+            <div class="detail-section">
+                <p class="detail-label">날짜</p>
+                <p class="detail-content" th:text="${Notice.meetDay}">날짜</p>
+            </div>
+            <div class="detail-section">
+                <p class="detail-label">장소</p>
+                <p id="meetingAddress" class="detail-content" th:text="${Notice.meetPlace}">장소</p>
+            </div>
+            <div class="detail-section">
+                <p class="detail-label">세부공지사항</p>
+                <p class="detail-content" th:text="${Notice.content}">공지 내용</p>
+            </div>
+        </div>
+        <div style="margin:10px"></div>
+        <div id="map" style="width: 100%; height: 400px;"></div>
+        <div class="edit-buttons">
+            <a class="btn btn-primary" th:href="@{|/notice/noticemodify/${Notice.id}|}">수정</a>
+            <a class="btn btn-danger" th:href="@{|/notice/noticedelete/${Notice.id}|}">삭제</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=KAKAOMAPAPI&libraries=services,clusterer,drawing"></script>
+<script>
+    let map;
+let marker = null; // 이 부분 추가
+    document.addEventListener('DOMContentLoaded', async function () {
+        const container = document.getElementById("map");
+        const options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 일단 초기값
+            level: 3,
+        };
+
+        map = new kakao.maps.Map(container, options);
+
+        // 입력된 주소의 위도, 경도 정보를 가져오는 함수 호출
+        const address = document.getElementById("meetingAddress").textContent;
+        if (address) {
+            moveToAddress(address);
+        }
+    });
+
+    // 주소를 기반으로 위도와 경도 정보를 가져와서 맵의 중심 위치 및 마커를 설정하는 함수
+  function moveToAddress(address) {
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(address, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            console.log("Found address:", address); // 주소 확인
+            console.log("Coordinates:", coords.toString()); // 좌표 확인
+
+            map.setCenter(coords);
+
+            if (marker) {
+                marker.setMap(null); // 기존 마커 삭제
+            }
+
+            marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+            marker.addListener("click", function () {
+                window.open(
+                    `https://map.kakao.com/link/search/${address}`,
+                    "_blank"
+                );
+            });
+        } else {
+            console.error("Failed to find address:", address, status); // 주소 찾기 실패시 오류 메시지
+        }
+    });
+}
+</script>
+
+</body>
+</html>
