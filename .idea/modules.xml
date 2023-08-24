@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NotificationSite.iml" filepath="$PROJECT_DIR$/.idea/modules/NotificationSite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NotificationSite.main.iml" filepath="$PROJECT_DIR$/.idea/modules/NotificationSite.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NotificationSite.test.iml" filepath="$PROJECT_DIR$/.idea/modules/NotificationSite.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Notification_site.iml" filepath="$PROJECT_DIR$/.idea/Notification_site.iml" />
     </modules>
   </component>

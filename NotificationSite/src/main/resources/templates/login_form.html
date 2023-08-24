@@ -1,24 +1,93 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
-    <form th:action="@{/user/login}" method="post">
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">
-                사용자ID 또는 비밀번호를 확인해 주세요.
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            opacity: 0; /* 시작 시 불투명도를 0으로 설정하여 부드러운 페이드인 효과 적용 */
+            transition: opacity 1s ease-in-out;
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+        .login-card-header {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .login-form-group {
+            margin-bottom: 20px;
+        }
+        .login-form-label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .login-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+        .login-links {
+            text-align: center;
+        }
+        .login-links a {
+            color: #007bff;
+        }
+    </style>
+    <script>
+        // 문서가 로드된 후 불투명도를 1로 조정하여 부드러운 페이드인 효과 적용
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.style.opacity = 1;
+        });
+    </script>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-card-header">Notivience</div>
+        <form th:action="@{/user/login}" method="post">
+            <div class="login-form-group">
+                <label class="login-form-label" for="username">사용자명</label>
+                <input type="text" class="login-input" id="username" name="username" placeholder="사용자명을 입력하세요">
             </div>
+            <div class="login-form-group">
+                <label class="login-form-label" for="password">비밀번호</label>
+                <input type="password" class="login-input" id="password" name="password" placeholder="비밀번호를 입력하세요">
+            </div>
+            <button type="submit" class="login-button">로그인</button>
+        </form>
+        <div class="login-links">
+            아직 계정이 없으신가요? <a href="/user/signup">회원가입</a>
         </div>
-        <div class="mb-3">
-            <label for="username" class="form-label">사용자ID</label>
-            <input type="text" name="username" id="username" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" name="password" id="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
-        <div>
-            <a href ="/oauth2/authorization/kakao">카카오 로그인</a>
-            <a href ="/oauth2/authorization/naver">네이버 로그인</a>
-        </div>
-    </form>
+    </div>
 </div>
+
+</body>
 </html>
