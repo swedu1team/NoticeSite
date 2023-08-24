@@ -5,70 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 상세 글</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" integrity="... your integrity value ..." crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+
         body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            width: 100%;
+            height:100vh;
         }
+
         .container {
-            padding: 0;
-            min-height: 100vh;
+            padding: 20px;
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            /* animation: slideUp 0.5s forwards; */ /* 애니메이션 제거 */
         }
+
         .detail-box {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 30px 40px;
             width: 100%;
-            max-width: 1500px;
+            max-width: 1000px;
+            /* animation: slideUp 0.5s forwards; */ /* 애니메이션 제거 */
         }
+
         .detail-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            background: linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색계통의 입체 배경 */
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 세련된 그림자 효과 추가 */
+            border: 3px solid #fffccc; /* 세련된 경계선 추가 */
         }
+
         .detail-content {
-            font-size: 18px;
-            line-height: 1.6;
+            font-size: 20px; /* 글씨 크기 조정 */
+            font-weight: 800; /* 글씨 굵기 조정 */
+            line-height: 1.8; /* 줄 간격 조정 */
+            color: #2d3748; /* 어두운 텍스트 컬러 */
+            border-top: 2px solid #8b7355;
+            padding-top:10px;
         }
-        .edit-buttons {
-            text-align: right;
-            margin-top: 30px;
-        }
+
+
+
         .detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-gap: 20px;
+            grid-gap: 15px;
             margin-top: 20px;
         }
+
         .detail-section {
-            background-color: #f0f0f0;
+        border: 2px solid #8b7355; /* 진한 갈색 경계선 추가 */
+            background-color:  #f4ede3;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .detail-label {
             font-size: 16px;
-            color: #6c757d;
+            color: #8b7355;
             font-weight: bold;
             margin-bottom: 10px;
         }
-        @media (max-width: 767px) {
-            .container {
-                padding: 20px;
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
             }
-            .detail-box {
-                padding: 20px;
-            }
-            .detail-grid {
-                grid-template-columns: 1fr;
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
+       .edit-buttons {
+    text-align: right;
+    margin-top: 30px;
+}
+
+.edit-buttons a {
+    padding: 10px 20px;
+    border-radius: 15px;
+    color: #111111; /* 갈색 계통의 색상 */
+    background: linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+    text-decoration: none;
+    margin: 0 10px;
+    transition: background 0.3s ease;
+}
+
+.edit-buttons a:hover {
+    background: linear-gradient(-136deg, #8b7355, #b8906f); /* 갈색 계통의 hover 배경 */
+}
+
+.btn {
+    /* 기본 스타일 */
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #111111; /* 갈색 계통의 색상 */
+    text-decoration: none;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    /* 그라디언트 배경 */
+    background: linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+
+    /* 테두리와 그림자 효과 */
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.6); /* 갈색 계통의 그림자 */
+}
+
+.btn:hover {
+    background: linear-gradient(-135deg, #6b5b45, #897d63); /* 갈색 계통의 hover 배경 */
+    box-shadow: 0 0 0 3px rgba(107, 91, 69, 0.6); /* 갈색 계통의 hover 그림자 */
+}
+
+
     </style>
 </head>
 <body>
@@ -87,22 +154,26 @@
             <div class="detail-section">
                 <p class="detail-label">장소</p>
                 <p id="meetingAddress" class="detail-content" th:text="${Notice.meetPlace}">장소</p>
+                <button id="copyAddressBtn" class="btn btn-secondary address-button" onclick="copyAddress()">
+                    <i class="fas fa-copy"></i>
+                </button>
             </div>
             <div class="detail-section">
                 <p class="detail-label">세부공지사항</p>
                 <p class="detail-content" th:text="${Notice.content}">공지 내용</p>
             </div>
         </div>
-        <div style="margin:10px"></div>
-        <div id="map" style="width: 100%; height: 400px;"></div>
+        <div style="margin:20px"></div>
+        <div id="map" style="width: 100%; height: 270px; border-radius:15px; border: 2px solid #8b7355;"></div>
         <div class="edit-buttons">
-            <a class="btn btn-primary" th:href="@{|/notice/noticemodify/${Notice.id}|}">수정</a>
-            <a class="btn btn-danger" th:href="@{|/notice/noticedelete/${Notice.id}|}">삭제</a>
+            <a class="btn btn-secondary" href="/notice/list"><i class="fas fa-arrow-left"></i></a> <!-- 뒤로가기 아이콘 -->
+            <a class="btn btn-primary" th:href="@{|/notice/noticemodify/${Notice.id}|}"><i class="fas fa-edit"></i></a> <!-- 수정 아이콘 -->
+            <a class="btn btn-danger" th:href="@{|/notice/noticedelete/${Notice.id}|}"><i class="fas fa-trash"></i></a> <!-- 삭제 아이콘 -->
         </div>
     </div>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=KAKAOMAPAPI&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e84f008dce40b4e48f458dad4990d080&libraries=services,clusterer,drawing"></script>
 <script>
     let map;
 let marker = null; // 이 부분 추가
@@ -154,6 +225,21 @@ let marker = null; // 이 부분 추가
             console.error("Failed to find address:", address, status); // 주소 찾기 실패시 오류 메시지
         }
     });
+}
+    function copyAddress() {
+    // 선택한 요소의 내용을 가져와서 주소로 저장
+    const address = document.getElementById("meetingAddress").textContent;
+
+    // 텍스트를 클립보드에 복사
+    const tempInput = document.createElement("textarea");
+    document.body.appendChild(tempInput);
+    tempInput.value = address;
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    // 알림을 표시
+    alert("주소가 복사되었습니다: " + address);
 }
 </script>
 

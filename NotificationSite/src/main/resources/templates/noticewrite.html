@@ -6,53 +6,167 @@
     <title>공지사항 작성 폼</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <script>
-        function searchAddress() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    // 팝업에서 검색결과 항목을 클릭했을 때 실행할 코드를 작성하는 부분.
-                    var addr = data.address; // 도로명 주소 변수
-
-                    // 주소 정보를 해당 필드에 넣는다.
-                    document.querySelector('input[name="meetPlace"]').value = addr;
-                }
-            }).open();
-        }
-    </script>
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
+        .card-header {
+      text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #fff;
+    font-weight: 600;
+    background: #8B4513;
+    padding: 15px 20px;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+    border: 3px solid #d2b48c;
+
+    /* 추가된 부분: 입체감을 위한 그림자 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  }
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .layout {
-            max-width: 800px;
-            margin: 0 auto;
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-control {
+        html {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
+            height: 100%;
         }
-        .form-textarea {
-            resize: vertical;
+
+        body {
+            background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0; /* Remove default margin */
         }
-        .submit-button {
-            text-align: center;
-        }
+
+        .layout {
+    background-color: rgba(255, 255, 255, 1);
+    padding: 10px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    height: 65%; /* Change to increase height */
+    animation: slideUp 0.5s forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.form-group {
+    margin-bottom: 25px; /* Add some spacing between form groups */
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 20px; /* Adjust padding */
+    margin-bottom: 10px; /* Add spacing for form controls */
+    border: 2px solid #8b7355; /* 갈색 계통의 진한 갈색 */
+    border-radius: 5px;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.form-control:focus {
+    border: 2px solid linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+    box-shadow: none;
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+.address-button {
+        margin-top: 10px; /* Add margin for address button */
+        background-color: #b8906f;
+        border: 2px solid #8b7355;
+        transition: background 0.3s ease, color 0.3s ease;
+        color: #FFF;
+        padding: 10px 20px; /* Adjust padding */
+        border-radius: 5px;
+    }
+
+    .address-button:hover {
+        background-color: #6b5b45;
+        color: #FFF;
+    }
+
+
+.submit-button {
+    text-align: center;
+}
+
+.btn-primary {
+    color: #FFF;
+    background: linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px; /* Adjust padding */
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.3); /* 갈색 계통의 그림자 */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(-135deg, #6b5b45, #897d63); /* 갈색 계통의 hover 배경 */
+    box-shadow: 0 0 0 3px rgba(107, 91, 69, 0.6); /* 갈색 계통의 hover 그림자 */
+}
+
+         @keyframes slideUp {
+             from {
+                 transform: translateY(50px);
+                 opacity: 0;
+             }
+             to {
+                 transform: translateY(0);
+                 opacity: 1;
+             }
+         }
+
+         .form-control, .btn {
+             padding: 10px 20px;
+             border-radius: 5px;
+             transition: background 0.3s ease, border 0.3s ease;
+         }
+
+        .icon-btn {
+    padding: 10 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.3);
+}
+
+.icon-btn:hover {
+    background: linear-gradient(-135deg, #6b5b45, #897d63);
+    box-shadow: 0 0 0 3px rgba(107, 91, 69, 0.6);
+}
+
+.submit-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+
+
     </style>
 </head>
 <body>
 <div class="layout">
+    <div class="card-header" style="border-radius:20px;">Notivience</div>
     <form action="/notice/noticewritepro" method="post">
         <div class="form-group">
             <input class="form-control" name="meetSubject" placeholder="공지사항 제목">
@@ -62,16 +176,34 @@
         </div>
         <div class="form-group">
             <input class="form-control" name="meetPlace" placeholder="주소 입력">
-            <!-- 주소찾기 버튼에 함수 연결 -->
-            <button type="button" onclick="searchAddress()">주소찾기</button>
+            <button class="btn btn-secondary address-button" type="button" onclick="searchAddress()"
+                    >
+                주소찾기
+                <i class="fas fa-search"></i>
+            </button>
+
         </div>
         <div class="form-group">
             <textarea class="form-control form-textarea" name="content" placeholder="공지사항 내용 입력"></textarea>
         </div>
         <div class="submit-button">
-            <button type="submit" class="btn btn-primary">작성완료</button>
+            <a class="btn btn-primary icon-btn" href="/notice/list">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <button type="submit" class="btn btn-primary icon-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
     </form>
 </div>
+<script>
+    function searchAddress() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.querySelector('[name="meetPlace"]').value = data.address;
+            }
+        }).open();
+    }
+</script>
 </body>
 </html>
