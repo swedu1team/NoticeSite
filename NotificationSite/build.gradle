@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.NotificationSite'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.3'
 
 java {
 	sourceCompatibility = '17'
@@ -42,10 +42,6 @@ dependencies {
 //	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '2.0.5'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.0.2'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	// thymeleaf-layout-dialect
-	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.1.1'
-
-	// bootstrap
 	implementation group: 'org.webjars', name: 'bootstrap', version: '5.3.1'
 }
 

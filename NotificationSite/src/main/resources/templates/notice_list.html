@@ -52,7 +52,7 @@
      body {
          background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
          font-family: 'Poppins', sans-serif;
-         overflow: hidden;
+         overflow: auto;
          width: 100%;
      }
      .write-button,
@@ -296,14 +296,7 @@
   function showLogoutPopup() {
       alert("로그아웃 되었습니다. 공지사항 목록 확인은 가능하지만 수정, 삭제 및 등록은 로그인을 해야합니다.")
   }
- document.getElementById("toggleButton").addEventListener("click", function() {
-    const sideBar = document.getElementById("sideBar");
-    if (sideBar.classList.contains('expanded')) {
-        sideBar.classList.remove('expanded');
-    } else {
-        sideBar.classList.add('expanded');
-    }
-});
+
 </script>
 </body>
 </html>
