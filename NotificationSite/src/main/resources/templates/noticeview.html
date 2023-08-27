@@ -21,7 +21,8 @@
 <h1 style="text-align:center">공지사항 (테스트 버전)</h1>
 <div class="layout">
     <h1 th:text="${Notice.meetSubject}"> 공지사항 제목 </h1>
-    <div> <p th:text="${Notice.siteUser.username}"> 작성자 </p> </div>
+    <div> <p th:if="${Notice.siteUser != null}" th:text="${Notice.siteUser.username}"> 작성자 </p> </div>
+    <div> <p th:if="${Notice.member != null}" th:text="${Notice.member.username}"> 작성자 </p> </div>
     <div> <p th:text="${Notice.meetDay}"> 날짜 </p> </div>
     <div> <p th:text="${Notice.meetPlace}"> 주소 </p></div>
     <div>  <p th:text="${Notice.content}"> 공지 내용 </p> </div>

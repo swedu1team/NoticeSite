@@ -28,8 +28,12 @@ public class Notice {
 
     private LocalDateTime createDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username")
     private SiteUser siteUser;
+
+    @ManyToOne
+    @JoinColumn(name = "name", referencedColumnName = "name")
+    private Member member;
 
 }

@@ -1,9 +1,18 @@
 package com.NotificationSite.NotificationSite.service;
 
+import com.NotificationSite.NotificationSite.Config.DataNotFoundException;
 import com.NotificationSite.NotificationSite.entity.*;
 import com.NotificationSite.NotificationSite.repository.OAuth2MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -11,18 +20,23 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+@Slf4j
 @Primary
 @Service
 @RequiredArgsConstructor
 public class OAuth2MemberService extends DefaultOAuth2UserService {
     private final BCryptPasswordEncoder encoder;
+
     private final OAuth2MemberRepository oAuth2MemberRepository;
+
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
         OAuth2MemberInfo memberInfo = null;
         System.out.println(userRequest.getClientRegistration().getRegistrationId());
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
@@ -30,6 +44,8 @@ public class OAuth2MemberService extends DefaultOAuth2UserService {
             memberInfo = new GoogleMemberInfo(oAuth2User.getAttributes());
         } else if (registrationId.equals("naver")) {
             memberInfo = new NaverMemberInfo((Map)oAuth2User.getAttributes().get("response"));
+        } else if(registrationId.equals("kakao")) {
+            memberInfo = new KakaoMemberInfo(oAuth2User.getAttributes());
         } else {
             System.out.println("로그인 실패");
         }
@@ -53,7 +69,26 @@ public class OAuth2MemberService extends DefaultOAuth2UserService {
         } else {
             member = findMember.get();
         }
-        return new PrincipalDetails(member, oAuth2User.getAttributes());
+        return new PrincipalDetails(member, oAuth2User.getAttributes(), Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
+    }
+
+    public Member getUser(String username) {
+        log.info("시작");
+        log.info("username={}",username);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("authenticaiton ={}",authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        log.info("userDetails ={}",userDetails);
+        String name = userDetails.getUsername();
+        log.info("name ={}",name);
+        Optional<Member> siteUser = this.oAuth2MemberRepository.findByName(username);
+        log.info("siteUser = {}", siteUser);
+        if (siteUser.isPresent()) {
+            log.info("siteUserlast = {}", siteUser);
+            return siteUser.get();
+        } else {
+            return null;
+        }
     }
 
 }

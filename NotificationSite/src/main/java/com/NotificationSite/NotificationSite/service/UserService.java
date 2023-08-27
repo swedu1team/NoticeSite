@@ -5,12 +5,13 @@ import com.NotificationSite.NotificationSite.Config.DataNotFoundException;
 import com.NotificationSite.NotificationSite.entity.SiteUser;
 import com.NotificationSite.NotificationSite.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserService {
@@ -29,11 +30,14 @@ public class UserService {
     }
     // 회원가입 존재여부 확인
     public SiteUser getUser(String username) {
+        log.info("시작");
+        log.info("username={}",username);
         Optional<SiteUser> siteUser = this.userRepository.findByusername(username);
+        log.info("siteUser = {}", siteUser);
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
-            throw new DataNotFoundException("siteuser not found");
+            return null;
         }
     }
 }

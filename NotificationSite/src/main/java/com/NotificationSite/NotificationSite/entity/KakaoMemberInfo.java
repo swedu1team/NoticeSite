@@ -1,13 +1,13 @@
-package com.lotu_us.usedbook.auth.userinfo;
+package com.NotificationSite.NotificationSite.entity;
 
 import java.util.Map;
 
-public class KakaoUserInfo implements Oauth2UserInfo{
+public class KakaoMemberInfo implements OAuth2MemberInfo{
     private Map<String, Object> attributes;
     private Map<String, Object> attributesAccount;
     private Map<String, Object> attributesProfile;
 
-    public KakaoUserInfo(Map<String, Object> attributes) {
+    public KakaoMemberInfo(Map<String, Object> attributes) {
         /*
         System.out.println(attributes);
             {id=2131420196,

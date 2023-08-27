@@ -1,5 +1,6 @@
 package com.NotificationSite.NotificationSite.service;
 
+import com.NotificationSite.NotificationSite.entity.Member;
 import com.NotificationSite.NotificationSite.entity.Notice;
 import com.NotificationSite.NotificationSite.entity.SiteUser;
 import com.NotificationSite.NotificationSite.repository.NoticeRepository;
@@ -27,6 +28,16 @@ public class NoticeService {
         notice1.setMeetPlace(notice.getMeetPlace());
         notice1.setContent(notice.getContent());
         notice1.setSiteUser(author);
+        notice1.setCreateDate(LocalDateTime.now());
+        this.noticeRepository.save(notice1);
+    }
+    public void write(Notice notice, Member author){
+        Notice notice1 = new Notice();
+        notice1.setMeetSubject(notice.getMeetSubject());
+        notice1.setMeetDay(notice.getMeetDay());
+        notice1.setMeetPlace(notice.getMeetPlace());
+        notice1.setContent(notice.getContent());
+        notice1.setMember(author);
         notice1.setCreateDate(LocalDateTime.now());
         this.noticeRepository.save(notice1);
     }

@@ -4,32 +4,36 @@ import java.util.Map;
 
 public class NaverMemberInfo implements OAuth2MemberInfo {
 
+    private Map<String, Object> attributes;
+    private Map<String, Object> attributesResponse;
+
     public NaverMemberInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
+        this.attributesResponse = (Map<String, Object>) attributes.get("response");
     }
 
-    private Map<String, Object> attributes;
-
+    @Override
     public Map<String, Object> getAttributes() {
         return attributes;
     }
+
     @Override
     public String getProviderId() {
-        return (String) attributes.get("sub");
+        return attributesResponse.get("id").toString();
     }
 
     @Override
     public String getProvider() {
-        return "naver";
-    }
-
-    @Override
-    public String getName() {
-        return (String) attributes.get("name");
+        return "Naver";
     }
 
     @Override
     public String getEmail() {
-        return (String) attributes.get("email");
+        return attributesResponse.get("email").toString();
+    }
+
+    @Override
+    public String getName() {
+        return attributesResponse.get("name").toString();
     }
 }

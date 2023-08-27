@@ -1,16 +1,19 @@
 package com.NotificationSite.NotificationSite.entity;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
+@Getter
 @NoArgsConstructor
-public class Member {
+public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //기본키
@@ -36,4 +39,5 @@ public class Member {
         // 예를 들어, "ROLE_USER"를 반환하거나 사용자의 역할 정보를 반환하도록 구현합니다.
         return "ROLE_USER";
     }
+
 }
