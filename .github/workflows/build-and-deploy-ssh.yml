@@ -23,7 +23,7 @@ jobs:
       K_AUTH_TOKEN : ${{ secrets.K_AUTH_TOKEN }}
       N_AUTH : ${{ secrets.N_AUTH }}
       N_AUTH_TOKEN : ${{ secrets.N_AUTH_TOKEN }}
-    #
+    
     steps:
       - uses : actions/checkout@v3
 
@@ -49,17 +49,6 @@ jobs:
           key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
           source: NotificationSite/build/libs/NotificationSite-0.0.2.jar
           target: /home/azureuser/NoticeSite
-
-      -name : Stop JAR in the Background
-       run: |
-        NOTICESITE_PID=$(ps -ef | grep jar | grep NotificationSite | awk '{print $2}')
-        if [ -z "$NOTICESITE_PID" ];
-        then
-            echo "NoticeSite is not running"
-        else
-            kill -9 $NOTICESITE_PID
-            echo "NoticeSite stopped."
-        fi
 
       - name: Run JAR in the Background
         run: |
