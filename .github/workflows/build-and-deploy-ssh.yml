@@ -52,9 +52,9 @@ jobs:
 
       - name: Run JAR in the Background
         run: |
-          echo "#!/bin/bash" >> start.sh
-          echo "JAR=/home/azureuser/NoticeSite/NotificationSite/build/libs/NotificationSite-0.0.4.jar" >> start.sh
-          echo "LOG=NoticeSite.log" >> start.sh
-          echo "nohup java -jar \$JAR > \$LOG 2>&1 &" >> start.sh
+          echo '#!/bin/bash' >> start.sh
+          echo 'JAR=/home/azureuser/NoticeSite/NotificationSite/build/libs/NotificationSite-0.0.4.jar' >> start.sh
+          echo 'LOG=NoticeSite.log' >> start.sh
+          echo 'nohup java -jar \$JAR > \$LOG 2>&1 &' >> start.sh
           chmod +x start.sh
           ./start.sh
