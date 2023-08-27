@@ -53,5 +53,5 @@ jobs:
       - name: Run JAR in the Background
         run: |
           JAR=/home/azureuser/NoticeSite/NotificationSite/build/libs/NotificationSite-0.0.4.jar
-          LOG=/home/azureuser/NoticeSite/NoticeSite.log
+          LOG=NoticeSite.log
           nohup java -jar $JAR > $LOG 2>&1 &
