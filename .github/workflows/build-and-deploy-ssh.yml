@@ -56,4 +56,5 @@ jobs:
           echo "JAR=/home/azureuser/NoticeSite/NotificationSite/build/libs/NotificationSite-0.0.2.jar" >> start.sh
           echo "LOG=/home/azureuser/NoticeSite/NoticeSite.log" >> start.sh
           echo "nohup java -jar $JAR > $LOG 2>&1 &" >> start.sh
+          chmod +x start.sh
           ./start.sh
