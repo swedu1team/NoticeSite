@@ -48,24 +48,21 @@ jobs:
           username: azureuser
           key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
           source: NotificationSite/build/libs/NotificationSite-0.0.2.jar
-          target: /home/azureuser/NoticeSite/NotificationSite-0.0.2.jar
+          target: /home/azureuser/NoticeSite
 
-#      - name: Copy JAR to Azure VM
-#        uses: appleboy/scp-action@master
-#        with:
-#          host: ${{ secrets.AZURE_VM_IP }}
-#          username: azureuser
-#          key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
-#          source: "NotificationSite/build/libs/NotificationSite-0.0.1.jar"  # 빌드된 JAR 파일의 경로
-#          target: "/home/azureuser/NoticeSite"
-#
-#      - name: SSH into Azure VM and restart app
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.AZURE_VM_IP }}
-#          username: azureuser
-#          key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
-#          script: |
-#            # start.sh 파일을 업로드하고 실행합니다
-#            scp start.sh azureuser@${{ secrets.AZURE_VM_IP }}:/home/azureuser/
-#            ssh azureuser@${{ secrets.AZURE_VM_IP }} 'bash -s' < /home/azureuser/start.sh
+      -name : Stop JAR in the Background
+       run: |
+        NOTICESITE_PID=$(ps -ef | grep jar | grep NotificationSite | awk '{print $2}')
+        if [ -z "$NOTICESITE_PID" ];
+        then
+            echo "NoticeSite is not running"
+        else
+            kill -9 $NOTICESITE_PID
+            echo "NoticeSite stopped."
+        fi
+
+      - name: Run JAR in the Background
+        run: |
+          JAR="/home/azureuser/NoticeSite/NotificationSite/build/libs/NotificationSite-0.0.2.jar"
+          LOG="/home/azureuser/NoticeSite/NoticeSite.log"
+          nohup java -jar $JAR > $LOG 2>&1 &
