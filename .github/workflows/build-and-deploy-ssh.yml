@@ -47,13 +47,13 @@ jobs:
           host: ${{ secrets.AZURE_VM_IP }}
           username: azureuser
           key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
-          source: NotificationSite/build/libs/NotificationSite-0.0.2.jar
+          source: NotificationSite/build/libs/NotificationSite-0.0.3.jar
           target: /home/azureuser/NoticeSite
 
       - name: Run JAR in the Background
         run: |
           echo "#!/bin/bash" >> start.sh
-          echo "JAR=/home/azureuser/NoticeSite/NotificationSite/build/libs/NotificationSite-0.0.2.jar" >> ./start.sh
+          echo "JAR=/home/azureuser/NoticeSite/NotificationSite/build/libs/NotificationSite-0.0.3.jar" >> ./start.sh
           echo "LOG=/home/azureuser/NoticeSite/NoticeSite.log" >> ./start.sh
           echo "nohup java -jar \$JAR > \$LOG 2>&1 &" >> ./start.sh
           chmod +x start.sh
