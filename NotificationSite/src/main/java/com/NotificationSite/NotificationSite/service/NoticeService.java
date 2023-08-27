@@ -1,5 +1,6 @@
 package com.NotificationSite.NotificationSite.service;
 
+
 import com.NotificationSite.NotificationSite.entity.Notice;
 import com.NotificationSite.NotificationSite.entity.SiteUser;
 import com.NotificationSite.NotificationSite.repository.NoticeRepository;
@@ -7,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class NoticeService {
@@ -30,6 +28,19 @@ public class NoticeService {
         notice1.setCreateDate(LocalDateTime.now());
         this.noticeRepository.save(notice1);
     }
+
+    /*
+    public void write(Notice notice, Member author){
+        Notice notice1 = new Notice();
+        notice1.setMeetSubject(notice.getMeetSubject());
+        notice1.setMeetDay(notice.getMeetDay());
+        notice1.setMeetPlace(notice.getMeetPlace());
+        notice1.setContent(notice.getContent());
+        notice1.setMember(author);
+        notice1.setCreateDate(LocalDateTime.now());
+        this.noticeRepository.save(notice1);
+    }
+    */
 
     //공지사항 수정
     public void modiwrite(Notice notice){
