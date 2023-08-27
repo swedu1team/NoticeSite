@@ -1,6 +1,7 @@
 # Notification_Site
 
 ***
+## URL https://simplenoti.hro.kr
 
 # 01 소개
 
@@ -10,24 +11,24 @@
 
 |로그인|공지사항리스트|공지사항작성|공지사항확인|
 |:---:|:---:|:---:|:---:|
-|![image.png](/.attachments/image-be23287f-bb61-40de-895d-56c57a9d1ac0.png)|![image.png](/.attachments/image-ee90a50f-35d6-4852-9e31-e4926d781da4.png)|![image.png](/.attachments/image-e6bb08e3-94a3-4073-aea8-d78366da657f.png)|![image.png](/.attachments/image-09693776-9e84-4308-82f1-29d2aad3da13.png)|
+|![image](https://github.com/swedu1team/NoticeSite/assets/85274249/c710ae75-2356-457c-aa0a-98196240e876)|![image](https://github.com/swedu1team/NoticeSite/assets/85274249/f93bb80b-321c-4604-9b88-c4fd746d5d5f)|![image](https://github.com/swedu1team/NoticeSite/assets/85274249/d926f99e-f07f-4267-a33a-08cd02ac3666)|![image](https://github.com/swedu1team/NoticeSite/assets/85274249/ab4fa8c6-085e-49a0-905c-1b3bf5de3bf9)|
 
 * 프로젝트의 주요 가치는 '사용자 중심 접근'입니다. 복잡한 디자인과 사용자 경험은 다양한 연령대의 사용자들이 서비스를 어렵게 느낄 수 있으므로 간결하고 직관적인 디자인을 중요시했습니다. 기술적인 측면에서는 원격 레포지토리에 Push되는 Jar 패키지가 자동으로 클라우드 인스턴스로 배포되는 CI/CD 절차를 도입하여 더욱 효율적인 운영을 지향했습니다. 또한, OAuth 및 사용자 정보 관리를 통해 보안성을 강화하고, 서버 내 DB 인증을 통해 안정적인 서비스를 제공하려 노력했습니다.
 
 * 계획으로는 사용자들이 자주 방문하는 장소의 위치 정보를 크롤링을 통해 자동으로 수집하여 제공하는 기능을 추가할 예정입니다. 또한, 송금 기능도 도입하여 서비스의 활용도를 더욱 확장할 계획입니다. 데이터 양이 증가하면 초기의 모놀리틱 아키텍처에서 벗어나 각 기능별 독립된 DB 시스템을 구축하여 확장성과 효율성을 높일 계획입니다.
-***
-***
+
+
 ## 2. 사용 스택
-![image.png](/.attachments/image-2506076a-8d0d-4817-bf1d-927b7de5645b.png)
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/5c1af36a-6e6f-47ea-8c5c-d8ccfd7ecc03)
 
 ***
 
 # 02 UML&DB설계
 
 ## DB Schema
-![image.png](/.attachments/image-d611e68a-8b96-4eca-82b3-29420417525c.png)
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/a6c9fd9f-1632-418c-af9c-00779f5f27ed)
 ## Development
-![image.png](/.attachments/image-e463c4a8-84f7-4db8-af51-4f05c31921d6.png)
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/a4673623-2a25-4c10-bfc6-4048b0d5927c)
 ## Operation
-![image.png](/.attachments/image-4337ad9e-3ef7-42d8-9261-86168836bcf8.png)
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/cce23230-9be0-446b-990a-b1a9d6b4280c)
 ***
