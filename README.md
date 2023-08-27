@@ -1,7 +1,7 @@
 # Notification_Site
 
 ***
-## URL http://simplenoti.kro.kr
+## URL http://simplenoti.n-e.kr
 
 # 01 소개
 
