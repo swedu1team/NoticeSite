@@ -212,12 +212,12 @@
     <h2>Modify</h2>
     <!-- 공지사항 목록 테이블 -->
     <div class="notice-list">
-        <form action="/notice/noticewritepro" method="post">
+        <form th:action="@{/notice/noticeupdate/{id}(id=${Notice.id})}" method="post">
             <div class="form-group">
-                <input class="form-control" name="meetSubject" placeholder="공지사항 제목">
+                <input class="form-control" name="meetSubject" th:value="${Notice.meetSubject}" placeholder="공지사항 제목">
             </div>
             <div class="form-group">
-                <input class="form-control" name="meetDay" type="date">
+                <input class="form-control" name="meetDay" th:value="${Notice.meetDay}" type="date">
             </div>
             <div class="form-group">
                 <input class="form-control" name="meetPlace" placeholder="도로명 주소 + 상세 주소">
@@ -229,7 +229,7 @@
 
             </div>
             <div class="form-group">
-                <textarea class="form-control form-textarea" name="content" placeholder="공지사항 내용 입력"></textarea>
+                <textarea class="form-control form-textarea" name="content" th:text="${Notice.content}"  placeholder="공지사항 내용 입력"></textarea>
             </div>
             <div class="submit-button">
                 <a class="btn btn-primary icon-btn" href="/notice/list">

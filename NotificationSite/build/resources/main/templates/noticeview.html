@@ -173,6 +173,7 @@
     </div>
     <div class="edit-buttons">
         <a class="btn btn-primary" href="/notice/list"><i class="fas fa-arrow-left"></i></a> <!-- 뒤로가기 아이콘 -->
+        <a class="btn btn-primary" id="copy-url"><i class="fas fa-link"></i></a> <!--페이지 공유 아이콘-->
         <a class="btn btn-primary" th:href="@{|/notice/noticemodify/${Notice.id}|}"><i class="fas fa-edit"></i></a> <!-- 수정 아이콘 -->
         <a class="btn btn-primary" th:href="@{|/notice/noticedelete/${Notice.id}|}"><i class="fas fa-trash"></i></a> <!-- 삭제 아이콘 -->
     </div>
@@ -244,6 +245,32 @@ let marker = null; // 이 부분 추가
     // 알림을 표시
     alert("주소가 복사되었습니다: " + address);
 }
+document.addEventListener('DOMContentLoaded', function() {
+    // 아이콘 클릭 시 동작할 함수
+    function copyCurrentPageURL() {
+        // 현재 페이지의 URL 가져오기
+        var currentPageURL = window.location.href;
+
+        // 임시 input 엘리먼트 생성
+        var tempInput = document.createElement('input');
+        tempInput.value = currentPageURL;
+        document.body.appendChild(tempInput);
+
+        // input 내용 선택 및 복사
+        tempInput.select();
+        document.execCommand('copy');
+
+        // 임시 input 엘리먼트 제거
+        document.body.removeChild(tempInput);
+
+        // 복사 완료 메시지 표시 (원하는 경우)
+        alert('현재 페이지의 URL이 복사되었습니다');
+    }
+
+    // 아이콘 클릭 이벤트에 함수 연결
+    var copyIcon = document.getElementById('copy-url');
+    copyIcon.addEventListener('click', copyCurrentPageURL);
+});
 </script>
 </body>
 </html>
