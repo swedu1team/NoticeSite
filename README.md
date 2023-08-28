@@ -1,4 +1,5 @@
 # Notification_Site
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/f50f589c-3349-4c18-9207-b09618240c19)
 
 ***
 ## URL http://simplenoti.n-e.kr
