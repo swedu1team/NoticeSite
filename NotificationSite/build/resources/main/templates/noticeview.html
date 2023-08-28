@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+         /* 뷰포트 설정 */
+        html{
+          width: 100%;
+          height: 100%;
+        }
+         @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+         body {
+             background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
+             font-family: 'Poppins', sans-serif;
+             overflow: auto;
+             width: 100%;
+         }
+      .top-links {
+         display: inline-block;
+      }
+      .layout {
+      background-color: rgba(255, 255, 255, 1);
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        max-width: 1000px;
+        margin: 40px auto;
+        animation: slideUp 0.5s forwards;
+        min-height: 80vh;
+  }
+
+         .form-group {
+    margin-bottom: 25px; /* Add some spacing between form groups */
+}
+.detail-title{
+ text-align: center;
+        font-size: 26px;
+        margin-bottom: 25px;
+        color: #fff;
+        font-weight: 600;
+        background: #8B4513;
+        padding: 15px 20px;
+        border-radius: 25px;
+        font-family: 'Poppins', sans-serif;
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-bottom: 10px;
+        border: 3px solid #d2b48c;
+
+        /* 추가된 부분: 입체감을 위한 그림자 */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 20px; /* Adjust padding */
+    margin-bottom: 10px; /* Add spacing for form controls */
+    border: 2px solid #8b7355; /* 갈색 계통의 진한 갈색 */
+    border-radius: 5px;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.form-control:focus {
+    border: 2px solid linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+    box-shadow: none;
+}
+.form-textarea {
+    resize: vertical;
+}
+
+.address-button {
+        margin-top: 10px; /* Add margin for address button */
+        background-color: #b8906f;
+        border: 2px solid #8b7355;
+        transition: background 0.3s ease, color 0.3s ease;
+        color: #FFF;
+        padding: 10px 20px; /* Adjust padding */
+        border-radius: 5px;
+    }
+    .address-button:hover {
+        background-color: #6b5b45;
+        color: #FFF;
+    }
+.submit-button {
+    text-align: center;
+}
+.btn-primary {
+    color: #FFF;
+    background: linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.3); /* 갈색 계통의 그림자 */
+    margin-right:10px;
+}
+.btn-primary:hover {
+    background: linear-gradient(-135deg, #6b5b45, #897d63); /* 갈색 계통의 hover 배경 */
+    box-shadow: 0 0 0 3px rgba(107, 91, 69, 0.6); /* 갈색 계통의 hover 그림자 */
+}
+         @keyframes slideUp {
+             from {
+                 transform: translateY(50px);
+                 opacity: 0;
+             }
+             to {
+                 transform: translateY(0);
+                 opacity: 1;
+             }
+         }
+
+         .form-control, .btn {
+             padding: 10px 20px;
+             border-radius: 5px;
+             transition: background 0.3s ease, border 0.3s ease;
+         }
+         @keyframes slideUp {
+             from {
+                 transform: translateY(50px);
+                 opacity: 0;
+             }
+             to {
+                 transform: translateY(0);
+                 opacity: 1;
+             }
+         }
+        .btn-custom {
+            border-color: #8b7355;
+            background-color: #8b7355;
+            color: white;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div class="layout">
+        <div class="form-group">
+            <p class="detail-title" th:text="${Notice.meetSubject}">공지사항제목</p>
+        </div>
+        <div class="form-group">
+            <p class="form-control" th:text="${Notice.siteUser.username}"></p>
+        </div>
+        <div class="form-group">
+            <p class="form-control" th:text="${Notice.meetDay}"></p>
+        </div>
+        <div class="form-group">
+            <p id="meetingAddress" class="form-control" th:text="${Notice.meetPlace}"></p>
+            <button id="copyAddressBtn" class="btn btn-secondary address-button" onclick="copyAddress()">
+                <i class="fas fa-copy"></i>
+            </button>
+        </div>
+        <div class="form-group">
+            <p class="form-control" th:text="${Notice.content}"></p>
+        </div>
+    <div class="form-group">
+        <div id="map" style="width: 100%; height: 350px; border-radius:15px; border: 2px solid #8b7355;"></div>
+    </div>
+    <div class="edit-buttons">
+        <a class="btn btn-primary" href="/notice/list"><i class="fas fa-arrow-left"></i></a> <!-- 뒤로가기 아이콘 -->
+        <a class="btn btn-primary" id="copy-url"><i class="fas fa-link"></i></a> <!--페이지 공유 아이콘-->
+        <a class="btn btn-primary" th:href="@{|/notice/noticemodify/${Notice.id}|}"><i class="fas fa-edit"></i></a> <!-- 수정 아이콘 -->
+        <a class="btn btn-primary" th:href="@{|/notice/noticedelete/${Notice.id}|}"><i class="fas fa-trash"></i></a> <!-- 삭제 아이콘 -->
+    </div>
+</div>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e84f008dce40b4e48f458dad4990d080&libraries=services,clusterer,drawing"></script>
+<script>
+    let map;
+let marker = null; // 이 부분 추가
+    document.addEventListener('DOMContentLoaded', async function () {
+        const container = document.getElementById("map");
+        const options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 일단 초기값
+            level: 3,
+        };
+        map = new kakao.maps.Map(container, options);
+
+        // 입력된 주소의 위도, 경도 정보를 가져오는 함수 호출
+        const address = document.getElementById("meetingAddress").textContent;
+        if (address) {
+            moveToAddress(address);
+        }
+    });
+    // 주소를 기반으로 위도와 경도 정보를 가져와서 맵의 중심 위치 및 마커를 설정하는 함수
+  function moveToAddress(address) {
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(address, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            console.log("Found address:", address); // 주소 확인
+            console.log("Coordinates:", coords.toString()); // 좌표 확인
+
+            map.setCenter(coords);
+
+            if (marker) {
+                marker.setMap(null); // 기존 마커 삭제
+            }
+
+            marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+            marker.addListener("click", function () {
+                window.open(
+                    `https://map.kakao.com/link/search/${address}`,
+                    "_blank"
+                );
+            });
+        } else {
+            console.error("Failed to find address:", address, status); // 주소 찾기 실패시 오류 메시지
+        }
+    });
+}
+    function copyAddress() {
+    // 선택한 요소의 내용을 가져와서 주소로 저장
+    const address = document.getElementById("meetingAddress").textContent;
+
+    // 텍스트를 클립보드에 복사
+    const tempInput = document.createElement("textarea");
+    document.body.appendChild(tempInput);
+    tempInput.value = address;
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    // 알림을 표시
+    alert("주소가 복사되었습니다: " + address);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // 아이콘 클릭 시 동작할 함수
+    function copyCurrentPageURL() {
+        // 현재 페이지의 URL 가져오기
+        var currentPageURL = window.location.href;
+
+        // 임시 input 엘리먼트 생성
+        var tempInput = document.createElement('input');
+        tempInput.value = currentPageURL;
+        document.body.appendChild(tempInput);
+
+        // input 내용 선택 및 복사
+        tempInput.select();
+        document.execCommand('copy');
+
+        // 임시 input 엘리먼트 제거
+        document.body.removeChild(tempInput);
+
+        // 복사 완료 메시지 표시 (원하는 경우)
+        alert('현재 페이지의 URL이 복사되었습니다');
+    }
+
+    // 아이콘 클릭 이벤트에 함수 연결
+    var copyIcon = document.getElementById('copy-url');
+    copyIcon.addEventListener('click', copyCurrentPageURL);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+        background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .signup-form-group {
+        margin-bottom: 20px;
+    }
+    .signup-form-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #694f3b; /* Brown text color */
+    }
+    .signup-input {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .signup-button {
+        width: 80%;
+        padding: 9px;
+        background-color: #8e6f5e; /* Darker brown button color */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .signup-button:hover {
+        background-color: #694f3b; /* Lighter brown button color on hover */
+    }
+     .signup-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
+    }
+    .signup-card {
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
+        border: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff; /* White background */
+        border-radius: 10px;
+        animation: slideUp 0.5s ease;
+    }
+    .signup-card-header {
+        text-align: center;
+        font-size: 26px;
+        margin-bottom: 25px;
+        color: #fff;
+        font-weight: 600;
+        background: #8B4513;
+        padding: 10px 10px;
+        border-radius: 25px;
+        font-family: 'Poppins', sans-serif;
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-bottom: 10px;
+        border: 3px solid #d2b48c;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+    /* Rest of your styles */
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    .back-button {
+        width: 20%;
+        padding: 12px;
+        background-color: #8B4513; /* Brown button color */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+        background-color: #694f3b; /* Lighter brown button color on hover */
+    }
+    .back-button i {
+    font-size: 20px; /* Adjust the size as needed */
+    margin-right: 5px; /* Add a little spacing between the icon and text */
+    padding: 10px;
+}
+  </style>
+</head>
+<body>
+
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="signup-card-header" style="border-radius:20px;">SignUp</div>
+    <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+      <div class="error-message" th:if="${#fields.hasErrors('*')}">
+        <div th:each="error : ${#fields.errors('*')}" class="alert alert-danger">
+          <p th:text="${error}"></p>
+        </div>
+      </div>
+      <div class="signup-form-group">
+        <label class="signup-form-label" for="username">사용자ID</label>
+        <input type="text" th:field="*{username}" class="signup-input">
+      </div>
+      <div class="signup-form-group">
+        <label class="signup-form-label" for="password1">비밀번호</label>
+        <input type="password" th:field="*{password1}" class="signup-input">
+      </div>
+      <div class="signup-form-group">
+        <label class="signup-form-label" for="password2">비밀번호 확인</label>
+        <input type="password" th:field="*{password2}" class="signup-input">
+      </div>
+      <div class="signup-form-group">
+        <label class="signup-form-label" for="email">이메일</label>
+        <input type="email" th:field="*{email}" class="signup-input">
+      </div>
+      <div class="button-container">
+        <button type="submit" class="signup-button">회원가입</button>
+        <a href="/user/login" class="back-button"><i class="fas fa-arrow-left"></i></a>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

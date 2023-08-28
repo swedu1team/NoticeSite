@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+
+         /* 뷰포트 설정 */
+        html{
+          width: 100%;
+          height: 100%;
+        }
+
+
+         @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+         body {
+             background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
+             font-family: 'Poppins', sans-serif;
+             overflow: auto;
+             width: 100%;
+         }
+
+
+      .top-links {
+         display: inline-block;
+      }
+        .write-button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: #FFF;
+        background: linear-gradient(-135deg, #8b7355, #8b7355); /* 갈색 계통의 색상으로 변경 */
+        text-decoration: none;
+        transition: background 0.3s ease;
+        width: 100%;
+        display: block;
+        font-weight: 400;
+        margin: 10px auto; /* 중앙 정렬 */
+        width: 80%; /* 버튼 너비 설정 */
+        text-align: center;
+        border: none; /* 경계선 제거 */
+    }
+
+
+
+         .layout {
+          background-color: rgba(255, 255, 255, 1);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 1000px;
+            margin: 40px auto;
+            animation: slideUp 0.5s forwards;
+            min-height: 80vh;
+      }
+
+         .layout h2 {
+            text-align: center;
+        font-size: 26px;
+        margin-bottom: 25px;
+        color: #fff;
+        font-weight: 600;
+        background: #8B4513;
+        padding: 15px 20px;
+        border-radius: 25px;
+        font-family: 'Poppins', sans-serif;
+        width: 300px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        margin-bottom: 10px;
+        border: 3px solid #d2b48c;
+
+        /* 추가된 부분: 입체감을 위한 그림자 */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+         }
+         .form-group {
+    margin-bottom: 25px; /* Add some spacing between form groups */
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 20px; /* Adjust padding */
+    margin-bottom: 10px; /* Add spacing for form controls */
+    border: 2px solid #8b7355; /* 갈색 계통의 진한 갈색 */
+    border-radius: 5px;
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.form-control:focus {
+    border: 2px solid linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+    box-shadow: none;
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+.address-button {
+        margin-top: 10px; /* Add margin for address button */
+        background-color: #b8906f;
+        border: 2px solid #8b7355;
+        transition: background 0.3s ease, color 0.3s ease;
+        color: #FFF;
+        padding: 10px 20px; /* Adjust padding */
+        border-radius: 5px;
+    }
+
+    .address-button:hover {
+        background-color: #6b5b45;
+        color: #FFF;
+    }
+
+
+.submit-button {
+    text-align: center;
+}
+
+.btn-primary {
+    color: #FFF;
+    background: linear-gradient(-135deg, #8b7355, #b8906f); /* 갈색 계통의 그라디언트 배경 */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px; /* Adjust padding */
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.3); /* 갈색 계통의 그림자 */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(-135deg, #6b5b45, #897d63); /* 갈색 계통의 hover 배경 */
+    box-shadow: 0 0 0 3px rgba(107, 91, 69, 0.6); /* 갈색 계통의 hover 그림자 */
+}
+
+         @keyframes slideUp {
+             from {
+                 transform: translateY(50px);
+                 opacity: 0;
+             }
+             to {
+                 transform: translateY(0);
+                 opacity: 1;
+             }
+         }
+
+         .form-control, .btn {
+             padding: 10px 20px;
+             border-radius: 5px;
+             transition: background 0.3s ease, border 0.3s ease;
+         }
+
+        .icon-btn {
+    padding: 10 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.3);
+}
+
+.icon-btn:hover {
+    background: linear-gradient(-135deg, #6b5b45, #897d63);
+    box-shadow: 0 0 0 3px rgba(107, 91, 69, 0.6);
+}
+
+.submit-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+
+
+         @keyframes slideUp {
+             from {
+                 transform: translateY(50px);
+                 opacity: 0;
+             }
+             to {
+                 transform: translateY(0);
+                 opacity: 1;
+             }
+         }
+
+
+        .btn-custom {
+            border-color: #8b7355;
+            background-color: #8b7355;
+            color: white;
+        }
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+
+<!-- 전체 레이아웃 -->
+<div class="layout">
+    <h2>Notivience</h2>
+    <!-- 공지사항 목록 테이블 -->
+    <div class="notice-list">
+        <form action="/notice/noticewritepro" method="post">
+            <div class="form-group">
+                <input class="form-control" name="meetSubject" placeholder="공지사항 제목">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="meetDay" type="date">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="meetPlace" placeholder="도로명 주소 + 상세 주소">
+                <button class="btn btn-secondary address-button" type="button" onclick="searchAddress()"
+                >
+                    주소찾기
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </div>
+            <div class="form-group">
+                <textarea class="form-control form-textarea" name="content" placeholder="공지사항 내용 입력"></textarea>
+            </div>
+            <div class="submit-button">
+                <a class="btn btn-primary icon-btn" href="/notice/list">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <button type="submit" class="btn btn-primary icon-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script>
+    function searchAddress() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                document.querySelector('[name="meetPlace"]').value = data.address;
+            }
+        }).open();
+    }
+</script>
+</body>
+</html>

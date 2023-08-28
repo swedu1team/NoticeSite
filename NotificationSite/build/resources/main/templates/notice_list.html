@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    *, *::before, *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+     /* 뷰포트 설정 */
+    html{
+      width: 100%;
+      height: 100%;
+    }
+
+      .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color:#e9d0ad;
+        }
+     .login-logout {
+     border-radius: 15px;
+     flex-wrap: wrap; /* 버튼들이 가로로 자동으로 배치되도록 설정 */
+       display: flex;
+       justify-content: space-between;
+       align-items: flex-end;
+       bottom: 0;
+       left: 0;
+       width: 100%;
+       padding: 20px;
+       background-color: rgba(255, 255, 255, 0);
+     }
+     .login-logout a {
+       margin: 0 10px;
+     }
+     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+     body {
+         background: linear-gradient(120deg, #FFD700 0%, #FFFFE0 100%);
+         font-family: 'Poppins', sans-serif;
+         overflow: auto;
+         width: 100%;
+     }
+     .write-button,
+    .login-logout a {
+        margin: 5px; /* 원하는 여백 크기로 조정 */
+    }
+
+  .top-links {
+     display: inline-block;
+  }
+     .write-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #FFF;
+    background: linear-gradient(-135deg, #8b7355, #8b7355); /* 갈색 계통의 색상으로 변경 */
+    text-decoration: none;
+    transition: background 0.3s ease;
+    width: 100%;
+    display: block;
+    font-weight: 400;
+    margin: 10px auto; /* 중앙 정렬 */
+    width: 80%; /* 버튼 너비 설정 */
+    text-align: center;
+    border: none; /* 경계선 제거 */
+}
+
+.write-button:hover {
+    background: linear-gradient(-135deg, #6b5b45, #6b5b45); /* 갈색 계통의 색상으로 변경 */
+}
+
+     .layout {
+      background-color: rgba(255, 255, 255, 1);
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        max-width: 1000px;
+        margin: 40px auto;
+        animation: slideUp 0.5s forwards;
+        min-height: 80vh;
+  }
+
+     .layout h2 {
+        text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #fff;
+    font-weight: 600;
+    background: #8B4513;
+    padding: 15px 20px;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+    border: 3px solid #d2b48c;
+
+    /* 추가된 부분: 입체감을 위한 그림자 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+     }
+
+     .pagination {
+       text-align: center;
+     }
+
+     @keyframes slideUp {
+         from {
+             transform: translateY(50px);
+             opacity: 0;
+         }
+         to {
+             transform: translateY(0);
+             opacity: 1;
+         }
+     }
+
+
+    .pagination .page-item.disabled .page-link,
+    .pagination .page-item.disabled .page-link:hover {
+        background-color: transparent;
+        border-color: #8b7355;
+        color: #8b7355;
+        cursor: not-allowed;
+    }
+
+    .pagination .page-item:not(.disabled) .page-link {
+        background-color: #8b7355;
+        border-color: #8b7355;
+        color: white;
+    }
+
+    .pagination .page-item:not(.disabled) .page-link:hover,
+    .pagination .page-item:not(.disabled) .page-link:focus {
+        background-color: #6b5b45;
+        border-color: #6b5b45;
+        color: white;
+    }
+
+    /* 현재 페이지 버튼 스타일 */
+    .pagination .page-item.active .page-link {
+        background-color: #8b7355;
+        border-color: #8b7355;
+        color: white;
+    }
+
+
+.pagination .page-item.active .page-link {
+    background-color: #8b7355;
+    border-color: #8b7355;
+    color: white;
+}
+
+.pagination .page-item:not(.active) .page-link {
+    background-color: transparent;
+    border-color: #8b7355;
+    color: #8b7355;
+}
+
+@media (max-width: 992px) {
+    .hidden-on-mobile {
+        display: none;
+    }
+
+    .mobile-title {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .pagination .page-item.active .page-link {
+        /* 현재 페이지에만 갈색 색상을 적용 */
+        background-color: #8b7355;
+        border-color: #8b7355;
+        color: white;
+    }
+
+    .pagination .page-item:not(.active) .page-link {
+        /* 현재 페이지가 아닌 페이지 버튼에는 기본 스타일 적용 */
+        background-color: transparent;
+        border-color: #8b7355;
+        color: #8b7355;
+    }
+      .login-logout {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* flex-end가 아닌 center로 변경하여 버튼을 수직 가운데 정렬 */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0);
+            flex-wrap: wrap; /* 버튼들이 가로로 자동으로 배치되도록 설정 */
+        }
+
+        .login-logout a {
+            margin: 5px 10px; /* 버튼 간격을 조정 */
+        }
+}
+    .btn-custom {
+        border-color: #8b7355;
+        background-color: #8b7355;
+        color: white;
+    }
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+
+<!-- 전체 레이아웃 -->
+<div class="layout">
+  <h2>NoticeList</h2>
+  <!-- 공지사항 목록 테이블 -->
+  <div class="notice-list">
+    <table class="table notice-table">
+      <thead>
+      <tr>
+        <th class="hidden-on-mobile">번호</th>
+        <th>제목</th>
+        <th class="hidden-on-mobile">작성자</th>
+        <th class="hidden-on-mobile">만남일시</th>
+        <th class="hidden-on-mobile">작성일시</th>
+        <th class="hidden-on-mobile">장소</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="notice, loop : ${paging.content}">
+        <td class="hidden-on-mobile" th:text="${paging.number * paging.size + loop.index + 1}"></td>
+        <td style="display: flex; align-items: center;">
+          <a th:href="@{/notice/noticeview/(id)(id=${notice.id})}" style="flex-grow: 1; font-weight: bold; color: black; text-decoration: none;">
+            <span th:text="${notice.meetSubject}"></span>
+          </a>
+          <a th:href="@{/notice/noticeview/(id)(id=${notice.id})}" style="color: black; text-decoration: none;">
+            <i class="fas fa-external-link-alt"></i>
+          </a>
+        </td>
+        <td class="hidden-on-mobile" ><span th:if="${notice.siteUser != null}" th:text="${notice.siteUser.username}"></span></td>
+        <td class="hidden-on-mobile" th:text="${notice.meetDay}"></td>
+        <td  class="hidden-on-mobile" th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+        <td class="hidden-on-mobile"><span th:text="${notice.meetPlace}"></span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:if="${!paging.isEmpty()}">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+        <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+          <span>이전</span>
+        </a>
+      </li>
+      <li th:each="page: ${#numbers.sequence(1, paging.totalPages)}"
+          th:if="${page >= paging.number-2 and page <= paging.number+2}"
+          th:classappend="${page == paging.number + 1} ? 'active'"
+          class="page-item">
+        <a th:text="${page}" class="page-link" th:href="@{|?page=${page-1}|}"
+           th:classappend="${page != paging.number + 1} ? 'not-current-page'"></a>
+      </li>
+      <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+        <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+          <span>다음</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- 등록 버튼 -->
+  <a th:href="@{/notice/noticewrite}" class="btn btn-primary write-button">POST</a>
+  <div class="login-logout">
+    <div sec:authorize="isAnonymous()">
+      <a th:href="@{/user/login}" class="btn btn-custom"><i class="fas fa-sign-in-alt"></i> 로그인</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+      <a th:href="@{/user/logout}" onclick="showLogoutPopup()" class="btn btn-custom"><i class="fas fa-sign-out-alt"></i> 로그아웃</a>
+    </div>
+  </div>
+</div>
+<script>
+  function showLogoutPopup() {
+      alert("로그아웃 되었습니다. 공지사항 목록 확인은 가능하지만 수정, 삭제 및 등록은 로그인을 해야합니다.")
+  }
+
+</script>
+</body>
+</html>

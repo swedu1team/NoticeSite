@@ -46,8 +46,7 @@ src/main/resources/application.yml
 NotificationSite/src/main/resources/application-oauth.yml
 NotificationSite/src/main/resources/application.properties
 
-# Ignore build directory
-build/
+
 
 # Ignore Gradle files
 gradle/
