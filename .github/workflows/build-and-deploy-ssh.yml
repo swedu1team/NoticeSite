@@ -47,5 +47,5 @@ jobs:
           host: ${{ secrets.AZURE_VM_IP }}
           username: azureuser
           key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
-          source: NotificationSite/build/libs/NotificationSite-0.0.8.jar
+          source: NotificationSite/build/libs/NotificationSite-0.0.9.jar
           target: /home/azureuser/NoticeSite
