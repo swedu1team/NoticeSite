@@ -1,6 +1,7 @@
+# Notification_Site
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/f50f589c-3349-4c18-9207-b09618240c19)
+
 # 역할
-
-
 ## Server[Pipeline&VM관리]
 * 홍성재
 
@@ -11,10 +12,6 @@
 ## Frontend & DB설계 및 API 연동
 * 이선호
 
-# Notification_Site
-![image](https://github.com/swedu1team/NoticeSite/assets/85274249/f50f589c-3349-4c18-9207-b09618240c19)
-
-***
 ## URL http://simplenoti.n-e.kr
 
 # 01 소개
