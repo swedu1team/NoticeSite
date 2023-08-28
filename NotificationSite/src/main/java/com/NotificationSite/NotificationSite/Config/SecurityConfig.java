@@ -66,7 +66,6 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
-                .headers((headers) -> headers.addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN))) // 추가된 부분
                 .formLogin()
                 .loginPage("/user/login")
                 .loginProcessingUrl("/user/login")
