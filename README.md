@@ -13,6 +13,7 @@
 * 이선호
 
 ![image](https://github.com/swedu1team/NoticeSite/assets/85274249/47c7b47d-5694-4ba9-a0b1-c3722cd7a86b)
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/066943e7-96f6-41fd-9fc9-0c825fa0151b)
 
 ## URL http://simplenoti.n-e.kr
 
