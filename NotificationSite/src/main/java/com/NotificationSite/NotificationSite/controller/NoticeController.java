@@ -3,6 +3,7 @@ package com.NotificationSite.NotificationSite.controller;
 import com.NotificationSite.NotificationSite.entity.Notice;
 import com.NotificationSite.NotificationSite.entity.SiteUser;
 import com.NotificationSite.NotificationSite.service.NoticeService;
+import com.NotificationSite.NotificationSite.service.OAuth2MemberService;
 import com.NotificationSite.NotificationSite.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,8 @@ public class NoticeController {
 
     private final NoticeService noticeService;
     private final UserService userService;
+
+    private final OAuth2MemberService oAuth2MemberService;
 
     @GetMapping("/list") //
     public String noticeList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
@@ -39,8 +42,12 @@ public class NoticeController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/noticewritepro")
     public String noticeWritePro(Notice notice, Principal principal) {
+
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.noticeService.write(notice, siteUser);
+
+        if(siteUser!=null){
+            this.noticeService.write(notice, siteUser);
+        }
         return "redirect:/notice/list";
     }
 
@@ -56,10 +63,10 @@ public class NoticeController {
     @GetMapping("/noticemodify/{id}")
     public String noticeModify(Model model, @PathVariable("id") Integer id, Principal principal){
         Notice notice = noticeService.noticeView(id);
+
         if(!notice.getSiteUser().getUsername().equals(principal.getName())) {
             return "redirect:/notice/list";  //수정권한이 없으면 list로 이동
         }
-
         model.addAttribute("Notice",noticeService.noticeView(id));
         return "noticemodify";
     }
@@ -94,4 +101,7 @@ public class NoticeController {
         this.noticeService.delete(notice);
         return "redirect:/notice/list";
     }
+
+
+
 }
