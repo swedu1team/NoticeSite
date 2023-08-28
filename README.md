@@ -1,10 +1,10 @@
 # 역할
 
 
-##Server[Pipeline&VM관리]
+## Server[Pipeline&VM관리]
 * 홍성재
 
-##Security[SpringSecurity&OAuth]&DB관리
+## Security[SpringSecurity&OAuth]&DB관리
 * 고병국 
 * 이용준
 
