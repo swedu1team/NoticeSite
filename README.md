@@ -12,6 +12,8 @@
 ## Frontend & DB설계 및 API 연동
 * 이선호
 
+![image](https://github.com/swedu1team/NoticeSite/assets/85274249/47c7b47d-5694-4ba9-a0b1-c3722cd7a86b)
+
 ## URL http://simplenoti.n-e.kr
 
 # 01 소개
@@ -44,5 +46,3 @@
 ![image](https://github.com/swedu1team/NoticeSite/assets/85274249/cce23230-9be0-446b-990a-b1a9d6b4280c)
 ***
 
-
-![image](https://github.com/swedu1team/NoticeSite/assets/85274249/47c7b47d-5694-4ba9-a0b1-c3722cd7a86b)
