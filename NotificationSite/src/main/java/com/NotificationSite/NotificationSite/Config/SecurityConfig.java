@@ -34,6 +34,7 @@ import java.io.IOException;
 public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
+    private final OAuth2MemberService oAuth2MemberService;
 
 
     @Bean
@@ -57,7 +58,6 @@ public class SecurityConfig {
     }
 
 
-    private final OAuth2MemberService oAuth2MemberService;
 
 
     @Bean

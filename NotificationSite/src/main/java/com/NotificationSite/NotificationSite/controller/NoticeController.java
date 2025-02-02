@@ -44,12 +44,8 @@ public class NoticeController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/noticewritepro")
     public String noticeWritePro(Notice notice, Principal principal) {
-        log.info("principle ={}",principal.getName());
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        log.info("principle ={}",principal.getName());
         Member member = this.oAuth2MemberService.getUser(principal.getName());
-        log.info("siteUser {}", siteUser);
-        log.info("member {}", member);
         if(siteUser!=null){
             this.noticeService.write(notice, siteUser);
         } else if (member!=null) {
@@ -70,7 +66,7 @@ public class NoticeController {
     @GetMapping("/noticemodify/{id}")
     public String noticeModify(Model model, @PathVariable("id") Integer id, Principal principal){
         Notice notice = noticeService.noticeView(id);
-        if(!notice.getSiteUser().getUsername().equals(principal.getName())) {
+        if(!notice.getSiteUser().getUsername().equals(principal.getName()) || !notice.getMember().getName().equals(principal.getName())) {
             return "redirect:/notice/list";  //수정권한이 없으면 list로 이동
         }
 
@@ -101,7 +97,7 @@ public class NoticeController {
     public String noticeDelete(@PathVariable("id") Integer id, Principal principal){
         Notice notice = this.noticeService.noticeView(id);
 
-        if(!notice.getSiteUser().getUsername().equals(principal.getName())) {
+        if(!notice.getSiteUser().getUsername().equals(principal.getName()) || !notice.getMember().getName().equals(principal.getName())) {
             return "redirect:/notice/list";  //수정권한이 없으면 list로 이동
         }
 
